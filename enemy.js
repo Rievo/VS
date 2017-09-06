@@ -8,6 +8,10 @@ function Enemy(){
 	this.setCenter(0,0);
 
 	this.life = 10;
+
+
+	this.attackFreq = 60 * 1; //60fps * X
+	this.attackCount = 0;
 }
 
 
@@ -33,7 +37,23 @@ Enemy.prototype.display = function(){
 
 
 Enemy.prototype.update = function(){
-	this.move();
+
+	//This is the updating algorithm
+
+
+	//Do I have any ally in range?
+	var range = 5;
+
+	var inRange = board.getAlliesAtRangeOfEnemy(range, this);
+
+
+	if(inRange.length == 0 || inRange == undefined){ //I can´t attack
+		this.move();
+	}else{
+		this.attack(inRange[0]);
+	}
+
+	
 }
 
 
@@ -42,5 +62,19 @@ Enemy.prototype.move = function(){
 
 	if(this.center.x <= 0){
 		this.center.x = width;
+	}
+}
+
+
+Enemy.prototype.attack = function(ally){
+	if(this.attackCount == this.attackFreq){
+		//Attack
+		console.log("EXTERMINATE");
+
+		ally.loseLife(1);
+
+		this.attackCount = 0;
+	}else{
+		this.attackCount += 1;
 	}
 }

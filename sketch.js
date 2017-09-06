@@ -42,7 +42,7 @@ function init(){
 	board.spawnEnemyOnLaneWithIndex(0);
 
 	board.spawnAllyOnCell(0,3);
-	board.spawnAllyOnCell(0,3);
+
 }
 
 
@@ -66,6 +66,6 @@ function mouseClicked(){
 	var cell = board.getCellAtPoint(x,y);
 
 	if(cell != undefined){
-
+		board.spawnAllyOnCell(cell.row,cell.col);
 	}
 }

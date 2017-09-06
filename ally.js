@@ -5,7 +5,11 @@ function Ally(){
 
 	this.setCenter(0,0);
 
-	this.life = 10;
+	this.life = 5;
+
+	this.lifeDivision = this.height / this.life;
+
+	this.currentCell = undefined;
 }
 
 
@@ -24,5 +28,29 @@ Ally.prototype.display = function(){
 			this.center.y - this.height / 2,
 			this.width, 
 			this.height);
+
+
+	//Display the life
+	fill(150, 20,20);
+	rect(this.center.x - this.width / 2,
+			this.center.y - this.height / 2,
+			this.width, 
+			this.height - this.lifeDivision * this.life);
 	
+}
+
+
+
+//If life is less or equal to 0, return this, so it will be removed
+Ally.prototype.checkLife = function(){
+	if(this.life <= 0){
+		return this;
+	}else{
+		return undefined;
+	}
+}
+
+
+Ally.prototype.loseLife = function(count){
+	this.life = this.life - count;
 }

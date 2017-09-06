@@ -35,7 +35,7 @@ Cell.prototype.pointIn = function(x,y){
 
 Cell.prototype.drawBorder = function(){
 
-	fill(255);
+	fill(0,0,0,0);
 	stroke(255,0,0);
 	rect(this.col * this.width,
 			this.row * this.height,

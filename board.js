@@ -46,11 +46,7 @@ Board.prototype.display = function(){
 	}
 
 
-	//Display the enemies
-	for(var i = 0; i< this.enemies.length; i++){
-		var e = this.enemies[i];
-		e.display();
-	}
+	
 
 
 	//Display the allies
@@ -58,10 +54,28 @@ Board.prototype.display = function(){
 		var a = this.allies[i];
 		a.display();
 	}
+
+	//Display the enemies
+	for(var i = 0; i< this.enemies.length; i++){
+		var e = this.enemies[i];
+		e.display();
+	}
+
+	//Check and remove the dead allies and enemies
+	this.checkDeadAllies();
 }
 
 
 
+function getIndexInArrayForObject(array, object){
+	for(var i = 0; i< array.length; i++){
+		if(array[i] === object){
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 Board.prototype.spawnAllyOnCell = function(row,col){
 	var cell = this.cells[row][col];
@@ -75,11 +89,35 @@ Board.prototype.spawnAllyOnCell = function(row,col){
 		this.allies.push(ally);
 
 		cell.ally = ally;
+		ally.currentCell = cell;
 	}else{
 		console.log("Error. The cell is not empty");
 	}
 	
 }
+
+Board.prototype.checkDeadAllies = function(){
+	var alliesToRemove = [];
+	
+	for(var i = 0; i< this.allies.length; i++){
+		var a = this.allies[i];
+		var r = a.checkLife();
+
+		if(r != undefined){
+			alliesToRemove.push(a);
+		}
+	}
+
+	for(var i = 0; i< alliesToRemove.length; i++){
+		var remove = alliesToRemove[i];
+		console.log(remove);
+		remove.currentCell.ally = undefined;
+		var indexInArray = getIndexInArrayForObject(this.allies, remove);
+		this.allies.splice(indexInArray, 1);
+
+	}
+}
+
 
 Board.prototype.spawnEnemyOnLaneWithIndex = function(index){
 	if(index >= this.rows){
@@ -118,4 +156,24 @@ Board.prototype.getCellAtPoint = function(x, y){
 	}
 
 	return undefined;
+}
+
+
+Board.prototype.getAlliesAtRangeOfEnemy = function(distance, enemy){
+	var atRange = [];
+
+
+	for(var i = 0; i< this.allies.length; i++){
+		var a = this.allies[i];
+
+
+		var d = dist(a.center.x, a.center.y, enemy.center.x, enemy.center.y);
+
+
+		if(d <= distance + (a.width)){
+			atRange.push(a);
+		}
+	}
+
+	return atRange;
 }
