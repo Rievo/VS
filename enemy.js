@@ -6,6 +6,8 @@ function Enemy(){
 	this.height = 30;
 
 	this.setCenter(0,0);
+
+	this.life = 10;
 }
 
 
