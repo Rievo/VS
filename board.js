@@ -167,7 +167,7 @@ Board.prototype.getAlliesAtRangeOfEnemy = function(distance, enemy){
 		var a = this.allies[i];
 
 
-		var d = dist(a.center.x, a.center.y, enemy.center.x, enemy.center.y);
+		var d = dist(a.center.x, a.center.y, enemy.center.x - enemy.width , enemy.center.y);
 
 
 		if(d <= distance + (a.width)){

@@ -2,8 +2,8 @@
 
 function Enemy(){
 	this.center = createVector(0, 0);
-	this.width = 30;
-	this.height = 30;
+	this.width = 60;
+	this.height = 70;
 
 	this.setCenter(0,0);
 
@@ -12,6 +12,8 @@ function Enemy(){
 
 	this.attackFreq = 60 * 1; //60fps * X
 	this.attackCount = 0;
+
+	this.img = loadImage("enemy.png");
 }
 
 
@@ -27,9 +29,9 @@ Enemy.prototype.setCenter = function(x,y){
 
 Enemy.prototype.display = function(){
 
-	fill(135,150,156);
-	ellipse(this.center.x - this.width / 2,
-			this.center.y - this.height / 2,
+
+	image(this.img, this.center.x - this.width ,
+			this.center.y - this.height,
 			this.width, 
 			this.height);
 	
