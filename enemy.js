@@ -32,9 +32,9 @@ Enemy.prototype.display = function(){
 
 	image(this.img, this.center.x - this.width ,
 			this.center.y - this.height,
-			this.width, 
+			this.width,
 			this.height);
-	
+
 }
 
 
@@ -55,7 +55,7 @@ Enemy.prototype.update = function(){
 		this.attack(inRange[0]);
 	}
 
-	
+
 }
 
 
@@ -71,8 +71,6 @@ Enemy.prototype.move = function(){
 Enemy.prototype.attack = function(ally){
 	if(this.attackCount == this.attackFreq){
 		//Attack
-		console.log("EXTERMINATE");
-
 		ally.loseLife(1);
 
 		this.attackCount = 0;

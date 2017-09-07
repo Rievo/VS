@@ -6,7 +6,7 @@ var board;
 function setup() {
 	createCanvas(700,400);
 
-	
+
 	init();
 }
 
@@ -17,15 +17,27 @@ function draw() {
 	background(51);
 
 
+	for(var i = 0; i < board.projs.length; i++){
+		var p = board.projs[i];
+		p.update();
+	}
+
+
 	for(var i = 0; i < board.enemies.length; i++){
 		var e = board.enemies[i];
 		e.update();
 	}
 
+
+	for(var i = 0; i < board.allies.length; i++){
+		var a = board.allies[i];
+		a.update();
+	}
+
 	board.display();
 
 
-	
+
 	var cell = board.getCellAtPoint(mouseX, mouseY);
 
 	if(cell != undefined){
@@ -36,12 +48,12 @@ function draw() {
 
 
 
-function init(){	
+function init(){
 	board = new Board(5,10);
 
 	board.spawnEnemyOnLaneWithIndex(0);
 
-	board.spawnAllyOnCell(0,3);
+	board.spawnAllyOnCell(0,0);
 
 }
 

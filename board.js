@@ -7,6 +7,7 @@ function Board(rows, cols){
 
 	this.enemies = [];
 	this.allies = [];
+	this.projs = [];
 
 	this.cells = [];
 
@@ -47,6 +48,11 @@ Board.prototype.display = function(){
 
 
 
+	//Display the projectiles
+	for(var i = 0; i< this.projs.length; i++){
+		var p = this.projs[i];
+		p.display();
+	}
 
 
 	//Display the allies
@@ -63,6 +69,7 @@ Board.prototype.display = function(){
 
 	//Check and remove the dead allies and enemies
 	this.checkDeadAllies();
+	this.checkDeadProjs();
 }
 
 
@@ -110,12 +117,34 @@ Board.prototype.checkDeadAllies = function(){
 
 	for(var i = 0; i< alliesToRemove.length; i++){
 		var remove = alliesToRemove[i];
-		console.log(remove);
 		remove.currentCell.ally = undefined;
 		var indexInArray = getIndexInArrayForObject(this.allies, remove);
 		this.allies.splice(indexInArray, 1);
 
 	}
+}
+
+
+Board.prototype.checkDeadProjs = function(){
+	var projsToRemove = [];
+
+	for(var i = 0; i< this.projs.length; i++){
+		var p = this.projs[i];
+
+
+		if(p.center.x >= width){
+			projsToRemove.push(p);
+		}
+	}
+
+	for(var i = 0; i< projsToRemove.length; i++){
+		var remove = projsToRemove[i];
+
+		var indexInArray = getIndexInArrayForObject(this.projs, remove);
+		this.projs.splice(indexInArray, 1);
+
+	}
+
 }
 
 
@@ -176,4 +205,9 @@ Board.prototype.getAlliesAtRangeOfEnemy = function(distance, enemy){
 	}
 
 	return atRange;
+}
+
+
+Board.prototype.spawnProjectile = function(p){
+	this.projs.push(p);
 }

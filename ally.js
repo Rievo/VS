@@ -13,6 +13,10 @@ function Ally(){
 
 
 	this.img = loadImage("ally1.png");
+
+
+	this.attackFreq = 60 * 0.8; //60fps * X
+	this.attackCount = 0;
 }
 
 
@@ -22,6 +26,27 @@ Ally.prototype.setCenter = function(x,y){
 	this.center.y = y;
 }
 
+
+Ally.prototype.update = function(){
+
+	//TODO: We should only attack if there is an enemy on this lane
+	this.attack();
+}
+
+
+Ally.prototype.attack = function(){
+	if(this.attackCount == this.attackFreq){
+		//Attack
+
+		//Dispatch a Projectile
+		var p = new Projectile(this.center.x + this.width/2, this.center.y, 4, 0);
+		board.spawnProjectile(p);
+
+		this.attackCount = 0;
+	}else{
+		this.attackCount += 1;
+	}
+}
 
 
 Ally.prototype.display = function(){
