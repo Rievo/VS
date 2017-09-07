@@ -1,7 +1,7 @@
 function Ally(){
 	this.center = createVector(0, 0);
-	this.width = 30;
-	this.height = 30;
+	this.width = 60;
+	this.height = 70;
 
 	this.setCenter(0,0);
 
@@ -10,6 +10,9 @@ function Ally(){
 	this.lifeDivision = this.height / this.life;
 
 	this.currentCell = undefined;
+
+
+	this.img = loadImage("ally1.png");
 }
 
 
@@ -23,10 +26,10 @@ Ally.prototype.setCenter = function(x,y){
 
 Ally.prototype.display = function(){
 
-	fill(196,201,50);
+	/*fill(196,201,50);
 	rect(this.center.x - this.width / 2,
 			this.center.y - this.height / 2,
-			this.width, 
+			this.width,
 			this.height);
 
 
@@ -34,9 +37,13 @@ Ally.prototype.display = function(){
 	fill(150, 20,20);
 	rect(this.center.x - this.width / 2,
 			this.center.y - this.height / 2,
-			this.width, 
-			this.height - this.lifeDivision * this.life);
-	
+			this.width,
+			this.height - this.lifeDivision * this.life);*/
+	image(this.img, this.center.x - this.width / 2 ,
+			this.center.y - this.height / 2,
+			this.width,
+			this.height);
+
 }
 
 

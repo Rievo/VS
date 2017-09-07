@@ -46,7 +46,7 @@ Board.prototype.display = function(){
 	}
 
 
-	
+
 
 
 	//Display the allies
@@ -93,12 +93,12 @@ Board.prototype.spawnAllyOnCell = function(row,col){
 	}else{
 		console.log("Error. The cell is not empty");
 	}
-	
+
 }
 
 Board.prototype.checkDeadAllies = function(){
 	var alliesToRemove = [];
-	
+
 	for(var i = 0; i< this.allies.length; i++){
 		var a = this.allies[i];
 		var r = a.checkLife();
@@ -146,7 +146,7 @@ Board.prototype.getCellAtPoint = function(x, y){
 	for(var r = 0; r < this.rows; r++){
 
 		for(var c = 0; c < this.cols; c++){
-			
+
 			var cell = this.cells[r][c];
 
 			if(cell.pointIn(x,y)){
@@ -167,7 +167,7 @@ Board.prototype.getAlliesAtRangeOfEnemy = function(distance, enemy){
 		var a = this.allies[i];
 
 
-		var d = dist(a.center.x, a.center.y, enemy.center.x - enemy.width , enemy.center.y);
+		var d = dist(a.center.x, a.center.y, enemy.center.x, enemy.center.y);
 
 
 		if(d <= distance + (a.width)){

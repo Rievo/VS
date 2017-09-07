@@ -15,7 +15,6 @@ Cell.prototype.getCenter = function(){
 
 
 	var v = createVector(x,y);
-	console.log(x,y);
 	return v;
 }
 
@@ -39,7 +38,7 @@ Cell.prototype.drawBorder = function(){
 	stroke(255,0,0);
 	rect(this.col * this.width,
 			this.row * this.height,
-			this.width, 
+			this.width,
 			this.height);
-	
+
 }
