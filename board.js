@@ -68,8 +68,9 @@ Board.prototype.display = function(){
 	}
 
 	//Check and remove the dead allies and enemies
+	this.checkEnemies();
 	this.checkDeadAllies();
-	this.checkDeadProjs();
+	this.checkProjs();
 }
 
 
@@ -125,25 +126,98 @@ Board.prototype.checkDeadAllies = function(){
 }
 
 
-Board.prototype.checkDeadProjs = function(){
+
+
+//Does the projectile hits something?
+Board.prototype.checkProjectileHits = function(proj){
+
+	var distance = 5;
+
+
+	for(var j = 0; j < this.enemies.length; j++){
+		var e = this.enemies[j];
+
+		var d = dist(e.center.x, e.center.y, proj.center.x, proj.center.y);
+
+		if(d <= distance + (e.width)){
+			return e;
+		}
+	}
+
+	return undefined;
+}
+
+Board.prototype.checkEnemies = function(){
+
+	var enemiesToRemove = [];
+
+	for(var i = 0; i< this.enemies.length; i++){
+
+		var e = this.enemies[i];
+
+		if(e.life <= 0){
+			enemiesToRemove.push(e);
+		}
+	}
+
+
+	for(var i = 0; i< enemiesToRemove.length; i++){
+		var remove = enemiesToRemove[i];
+
+		var indexInArray = getIndexInArrayForObject(this.enemies, remove);
+		if(indexInArray != -1){
+			this.enemies.splice(indexInArray, 1);	
+		}
+		
+
+	}	
+}
+
+
+Board.prototype.checkProjs = function(){
+
+	
 	var projsToRemove = [];
 
+
+	//For each projectile
 	for(var i = 0; i< this.projs.length; i++){
 		var p = this.projs[i];
 
 
+		//Check if it is out of bounds
 		if(p.center.x >= width){
 			projsToRemove.push(p);
+
+		}else{
+			//Now check the impacts
+
+			var damagedEnemy = this.checkProjectileHits(p);
+
+			if(damagedEnemy != undefined){ //The projectile hits an enemy
+
+				//TODO: Remove the default damage.
+				//Read the real one from the shotter of the projectile
+				damagedEnemy.loseLife(1);
+
+				projsToRemove.push(p);
+			}
+			
 		}
+		
 	}
 
+	//Finally remove them from the array
 	for(var i = 0; i< projsToRemove.length; i++){
 		var remove = projsToRemove[i];
 
 		var indexInArray = getIndexInArrayForObject(this.projs, remove);
-		this.projs.splice(indexInArray, 1);
+		if(indexInArray != -1){
+			this.projs.splice(indexInArray, 1);	
+		}
+		
 
-	}
+	}	
 
 }
 

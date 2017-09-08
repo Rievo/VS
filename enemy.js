@@ -78,3 +78,8 @@ Enemy.prototype.attack = function(ally){
 		this.attackCount += 1;
 	}
 }
+
+
+Enemy.prototype.loseLife = function(count){
+	this.life = this.life - count;
+}
