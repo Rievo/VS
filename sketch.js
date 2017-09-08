@@ -43,9 +43,23 @@ function draw() {
 	if(cell != undefined){
 		cell.drawBorder();
 	}
+
+
+
+	spawnRandomEnemy();
 }
 
 
+function spawnRandomEnemy(){
+	var random = Math.random();
+
+	if(random <= 0.01){ //10% of chance to spawn an enemy 
+
+		//In wich lane?
+		var laneIndex =  Math.floor(Math.random() * (board.rows - 0) + 0);
+		board.spawnEnemyOnLaneWithIndex(laneIndex);
+	}
+}
 
 
 function init(){

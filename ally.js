@@ -2,6 +2,7 @@ function Ally(){
 	this.center = createVector(0, 0);
 	this.width = 60;
 	this.height = 70;
+	this.lane = -1;
 
 	this.setCenter(0,0);
 
@@ -26,11 +27,18 @@ Ally.prototype.setCenter = function(x,y){
 	this.center.y = y;
 }
 
+Ally.prototype.setLane = function(index){
+	this.lane = index;
+	
+}
+
 
 Ally.prototype.update = function(){
 
 	//TODO: We should only attack if there is an enemy on this lane
-	this.attack();
+
+	if(board.isLaneOnDanger(this.lane))
+		this.attack();
 }
 
 

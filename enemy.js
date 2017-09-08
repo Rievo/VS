@@ -4,6 +4,8 @@ function Enemy(){
 	this.center = createVector(0, 0);
 	this.width = 60;
 	this.height = 70;
+	this.lane = -1;
+
 
 	this.setCenter(0,0);
 
@@ -19,6 +21,10 @@ function Enemy(){
 
 
 
+Enemy.prototype.setLane = function(index){
+	this.lane = index;
+	
+}
 
 Enemy.prototype.setCenter = function(x,y){
 	this.center.x = x;

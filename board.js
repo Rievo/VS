@@ -94,6 +94,7 @@ Board.prototype.spawnAllyOnCell = function(row,col){
 
 		var ally = new Ally();
 		ally.setCenter(center.x, center.y);
+		ally.lane = row;
 		this.allies.push(ally);
 
 		cell.ally = ally;
@@ -147,6 +148,19 @@ Board.prototype.checkProjectileHits = function(proj){
 	return undefined;
 }
 
+
+Board.prototype.isLaneOnDanger = function(index){
+	for(var i = 0; i< this.enemies.length; i++){
+
+		var e = this.enemies[i];
+
+		if(e.lane == index){
+			return true;
+		}
+	}
+	return false;
+}
+
 Board.prototype.checkEnemies = function(){
 
 	var enemiesToRemove = [];
@@ -198,7 +212,7 @@ Board.prototype.checkProjs = function(){
 
 				//TODO: Remove the default damage.
 				//Read the real one from the shotter of the projectile
-				damagedEnemy.loseLife(1);
+				damagedEnemy.loseLife(3);
 
 				projsToRemove.push(p);
 			}
@@ -239,7 +253,9 @@ Board.prototype.spawnEnemyOnLaneWithIndex = function(index){
 		//The X will be width +- something
 
 		var enemy = new Enemy();
-		enemy.setCenter(width - 100 , laneStart + enemy.height/2);
+		enemy.setCenter(width + enemy.width , laneStart + enemy.height/2);
+
+		enemy.setLane(index);
 		this.enemies.push(enemy);
 	}
 }
